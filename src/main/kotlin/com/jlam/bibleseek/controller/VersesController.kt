@@ -1,29 +1,29 @@
 package com.jlam.bibleseek.controller
 
-import com.jlam.bibleseek.entity.Verse
-import com.jlam.bibleseek.repository.VerseRepository
+import com.jlam.bibleseek.entity.Verses
+import com.jlam.bibleseek.repository.VersesRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/verses")
-class VerseController(val verseRepository: VerseRepository) {
+class VersesController(val versesRepository: VersesRepository) {
 
     @GetMapping
-    fun getAllVerses(): List<Verse> = verseRepository.findAll()
+    fun getAllVerses(): List<Verses> = versesRepository.findAll()
 
     @GetMapping("/{id}")
-    fun getVerseById(@PathVariable id: Long): ResponseEntity<Verse> =
-        verseRepository.findById(id).map { ResponseEntity.ok(it) }
+    fun getVerseById(@PathVariable id: Long): ResponseEntity<Verses> =
+        versesRepository.findById(id).map { ResponseEntity.ok(it) }
             .orElse(ResponseEntity.notFound().build())
 
     @PostMapping
-    fun createVerse(@RequestBody verse: Verse): Verse = verseRepository.save(verse)
+    fun createVerse(@RequestBody verse: Verses): Verses = versesRepository.save(verse)
 
     @PutMapping("/{id}")
-    fun updateVerse(@PathVariable id: Long, @RequestBody newVerse: Verse): ResponseEntity<Verse> {
-        return verseRepository.findById(id).map { existingVerse ->
+    fun updateVerse(@PathVariable id: Long, @RequestBody newVerse: Verses): ResponseEntity<Verses> {
+        return versesRepository.findById(id).map { existingVerse ->
             val updatedVerse = existingVerse.copy(
                 verseText = newVerse.verseText,
                 book = newVerse.book,
@@ -31,14 +31,14 @@ class VerseController(val verseRepository: VerseRepository) {
                 verseNumber = newVerse.verseNumber,
                 voteCount = newVerse.voteCount
             )
-            ResponseEntity.ok(verseRepository.save(updatedVerse))
+            ResponseEntity.ok(versesRepository.save(updatedVerse))
         }.orElse(ResponseEntity.notFound().build())
     }
 
     @DeleteMapping("/{id}")
     fun deleteVerse(@PathVariable id: Long): ResponseEntity<Void> {
-        return verseRepository.findById(id).map {
-            verseRepository.delete(it)
+        return versesRepository.findById(id).map {
+            versesRepository.delete(it)
             ResponseEntity<Void>(HttpStatus.OK)
         }.orElse(ResponseEntity.notFound().build())
     }

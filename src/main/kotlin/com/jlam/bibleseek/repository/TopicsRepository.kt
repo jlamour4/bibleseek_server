@@ -1,6 +1,6 @@
 package com.jlam.bibleseek.repository
 
-import com.jlam.bibleseek.entity.User
+import com.jlam.bibleseek.entity.Topics
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface UserRepository : JpaRepository<User, Long>
+interface TopicsRepository : JpaRepository<Topics, Long>
