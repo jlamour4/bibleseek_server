@@ -39,3 +39,4 @@ out/
 ### Kotlin ###
 .kotlin
 /src/main/resources/bibleseek-3ade5-firebase-adminsdk-v3dxh-698fe0c736.json
+/src/main/resources/application.properties

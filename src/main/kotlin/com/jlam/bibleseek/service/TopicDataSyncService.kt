@@ -49,7 +49,7 @@ class TopicDataSyncService( private val topicDataUpdaterService: TopicDataUpdate
     @Scheduled(cron = "0 0 3 * * MON")
     fun updateVotesAndTopics() {
         try {
-            println("Starting weekly topic votes update...")
+                println("Starting weekly topic votes update...")
             downloadFile(dataUrl, tempFilePath)
             val jsonObject = parseFile(tempFilePath)
             topicDataUpdaterService.updateDatabase(jsonObject)
